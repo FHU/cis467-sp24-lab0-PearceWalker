@@ -32,6 +32,18 @@ app.get('/math/:num1/:op/:num2', (req, res)=> {
 app.get('/pandorasbox', (req, res)=> {
 
     // do the work
+
+    fetch("https://icanhazdadjoke.com/",
+    {
+        headers: {
+            "Accept": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        res.render('pandorasbox', {title: "Pandora's Box", joke: data.joke})
+    })
     
     const length = facts.length;
     const random = Math.floor(Math.random() * length)
