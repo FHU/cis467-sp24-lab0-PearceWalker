@@ -33,6 +33,7 @@ app.get('/pandorasbox', (req, res)=> {
 
     // do the work
 
+
     fetch("https://icanhazdadjoke.com/",
     {
         headers: {
@@ -40,15 +41,15 @@ app.get('/pandorasbox', (req, res)=> {
         }
     })
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
         console.log(data)
-        res.render('pandorasbox', {title: "Pandora's Box", joke: data.joke})
+        res.render('pandorasbox', {title: "Pandora's Box", message: data.joke} )
     })
     
     const length = facts.length;
     const random = Math.floor(Math.random() * length)
     const fact4 = facts[4].fact
 
-    res.render('pandorasbox', {title: "Pandora's Box",fact4} )
+     
 
 })
