@@ -1,4 +1,4 @@
-const facts = require('./facts.js')
+const facts = require('./facts.json')
 
 const express = require('express')
 const app = express()
@@ -27,6 +27,7 @@ app.get('/greet', (req, res)=> {
 app.get('/math/:num1/:op/:num2', (req, res)=> {
     console.log( req.params )
     res.send(`${req.params.num1}`)
+    res.send()
 })
 
 app.get('/pandorasbox', (req, res)=> {
@@ -40,7 +41,9 @@ app.get('/pandorasbox', (req, res)=> {
             "Accept": "application/json"
         }
     })
+    
     .then(response => response.json())
+
     .then((data) => {
         console.log(data)
         res.render('pandorasbox', {title: "Pandora's Box", message: data.joke} )
