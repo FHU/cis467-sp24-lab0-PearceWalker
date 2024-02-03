@@ -18,17 +18,51 @@ app.get("/", (req, res) => {
 })
 
 // http://localhost:3000/greet?name=kaylee&dob=2002
-app.get('/greet', (req, res)=> {
-    console.log(req.query)
+app.get('/greet', (req, res) => {
+    const { name, year } = req.query;
 
-    res.send(`hey, ${req.query.name}`)
-})
+    if (!name || !year) {
+        res.status(400).send('Please provide both name and year parameters.');
+        return;
+    }
 
-app.get('/math/:num1/:op/:num2', (req, res)=> {
-    console.log( req.params )
-    res.send(`${req.params.num1}`)
-    res.send()
-})
+    const currentYear = new Date().getFullYear();
+    const age1 = currentYear - parseInt(year);
+    const age2 = age1 - 1;
+
+    res.send(`Hello, ${name}!\nYou are ${age1} or ${age2} years old.`);
+});
+
+app.get('/math/:num1/:op/:num2', (req, res) => {
+    const { num1, op, num2 } = req.params;
+
+    
+    const parsedNum1 = parseInt(num1);
+    const parsedNum2 = parseInt(num2);
+
+    let result;
+    switch (op) {
+        case 'plus':
+            result = parsedNum1 + parsedNum2;
+            break;
+        case 'minus':
+            result = parsedNum1 - parsedNum2;
+            break;
+        case 'times':
+            result = parsedNum1 * parsedNum2;
+            break;
+        case 'divide':
+            result = parsedNum1 / parsedNum2;
+            break;
+        default:
+            res.status(400).send('Invalid operation');
+            return;
+    }
+
+    
+    res.send(result.toString());
+});
+
 
 app.get('/pandorasbox', (req, res)=> {
 
